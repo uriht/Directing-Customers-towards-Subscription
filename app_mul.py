@@ -13,8 +13,16 @@ def predict_enrollment(data):
 
     return predictions
 
-# Create the Streamlit web app
-st.title('FineTech App Enrollment Predictor')
+# Create the Streamlit web app with decorations
+st.set_page_config(
+    page_title="FineTech Enrollment Predictor",
+    page_icon="✅",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Title with decoration
+st.title('📈 FineTech App Enrollment Predictor 📊')
 
 # Upload widget for the Excel file in the main content area
 uploaded_file = st.file_uploader("Upload an Excel file", type=["xls", "xlsx"])
@@ -24,13 +32,13 @@ if uploaded_file is not None:
     # Read the uploaded Excel file into a DataFrame
     user_data = pd.read_excel(uploaded_file)
 
-    # Display the uploaded data
-    st.subheader('Uploaded Data')
+    # Display the uploaded data with a subheader
+    st.subheader('📄 Uploaded Data 📄')
     st.write(user_data)
 
     # When the user clicks the prediction button
-    if st.button('Predict Enrollment'):
-        st.subheader('Predictions')
+    if st.button('🔮 Predict Enrollment 🔮'):
+        st.subheader('🚀 Predictions 🚀')
         
         # Initialize an empty list to store the results
         results = []
