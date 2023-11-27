@@ -27,6 +27,25 @@ st.title('📈 FineTech App Enrollment Predictor 📊')
 # Upload widget for the Excel file in the main content area
 uploaded_file = st.file_uploader("Upload an Excel file", type=["xls", "xlsx"])
 
+#Sample Dataset
+@st.cache
+def load_data(file_path):
+    return pd.read_excel(file_path)
+
+file_path = 'Testing_Director.xlsx'
+
+data = load_data(file_path)
+
+st.write(data)
+
+if st.button('Download Excel File'):
+    st.download_button(
+        label='Download Data as Excel',
+        data=data.to_excel(index=False).getvalue(),
+        file_name='data.xlsx',
+        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+
 # Check if a file has been uploaded
 if uploaded_file is not None:
     # Read the uploaded Excel file into a DataFrame
