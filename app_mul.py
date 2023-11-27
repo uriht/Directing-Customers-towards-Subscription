@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import io
+import base64 
 
 # Load your trained XGBoost model
 model = joblib.load('FineTech_app_ML_model.joblib')
@@ -28,7 +30,7 @@ st.title('📈 FineTech App Enrollment Predictor 📊')
 uploaded_file = st.file_uploader("Upload an Excel file", type=["xls", "xlsx"])
 
 #Sample Dataset
-@st.cache
+@st.cache_data
 def load_data(file_path):
     return pd.read_excel(file_path)
 
@@ -36,14 +38,15 @@ file_path = 'Testing_Director.xlsx'
 
 data = load_data(file_path)
 
-if st.button('Download Excel File'):
+if st.button('Download Sample Data'):
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         data.to_excel(writer, index=False)
     excel_data = output.getvalue()
     b64 = base64.b64encode(excel_data).decode('utf-8')
-    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data.xlsx">Download Excel File</a>'
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data.xlsx">Sample dataset with 14 Customer Data</a>'
     st.markdown(href, unsafe_allow_html=True)
+
 # Check if a file has been uploaded
 if uploaded_file is not None:
     # Read the uploaded Excel file into a DataFrame
