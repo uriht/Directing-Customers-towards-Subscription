@@ -36,23 +36,14 @@ file_path = 'Testing_Director.xlsx'
 
 data = load_data(file_path)
 
-# st.write(data)
-
 if st.button('Download Excel File'):
     output = io.BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    data.to_excel(writer, index=False)
-    writer.save()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        data.to_excel(writer, index=False)
     excel_data = output.getvalue()
-    output.close()
-    
-    st.download_button(
-        label='Download Data as Excel',
-        data=excel_data,
-        file_name='data.xlsx',
-        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    )
-
+    b64 = base64.b64encode(excel_data).decode('utf-8')
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data.xlsx">Download Excel File</a>'
+    st.markdown(href, unsafe_allow_html=True)
 # Check if a file has been uploaded
 if uploaded_file is not None:
     # Read the uploaded Excel file into a DataFrame
