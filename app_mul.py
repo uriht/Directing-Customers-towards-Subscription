@@ -36,12 +36,19 @@ file_path = 'Testing_Director.xlsx'
 
 data = load_data(file_path)
 
-st.write(data)
+# st.write(data)
 
 if st.button('Download Excel File'):
+    output = io.BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    data.to_excel(writer, index=False)
+    writer.save()
+    excel_data = output.getvalue()
+    output.close()
+    
     st.download_button(
         label='Download Data as Excel',
-        data=data.to_excel(index=False).getvalue(),
+        data=excel_data,
         file_name='data.xlsx',
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
