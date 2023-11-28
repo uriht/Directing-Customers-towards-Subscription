@@ -17,7 +17,7 @@ def predict_enrollment(data):
 
 # Create the Streamlit web app with decorations
 st.set_page_config(
-    page_title="FineTech Enrollment Predictor",
+    page_title="Customer Enrollment Predictor",
     page_icon="✅",
     layout="wide",
     initial_sidebar_state="expanded"
