@@ -24,7 +24,7 @@ st.set_page_config(
 )
 
 # Title with decoration
-st.title('📈 FineTech App Enrollment Predictor 📊')
+st.title('📈 Customer Enrollment Predictor 📊')
 
 # Upload widget for the Excel file in the main content area
 uploaded_file = st.file_uploader("Upload an Excel file", type=["xls", "xlsx"])
